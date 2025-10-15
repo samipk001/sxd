@@ -11,8 +11,7 @@ export function LogoIcon({ className, ...props }: React.ComponentProps<"div">) {
       <Image
         src="/logo.png"
         alt="St. Xavier's School Deonia Logo"
-        width={160}
-        height={160}
+        fill
         className="object-contain"
       />
     </div>

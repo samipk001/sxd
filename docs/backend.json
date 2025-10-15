@@ -1,0 +1,273 @@
+{
+  "entities": {
+    "Blog": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Blog",
+      "type": "object",
+      "description": "Represents a blog post on the school website.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the blog post."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the blog post."
+        },
+        "content": {
+          "type": "string",
+          "description": "Content of the blog post (HTML or Markdown)."
+        },
+        "author": {
+          "type": "string",
+          "description": "Author of the blog post."
+        },
+        "datePublished": {
+          "type": "string",
+          "description": "Date and time when the blog post was published.",
+          "format": "date-time"
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the blog post (e.g., News, Events)."
+        },
+        "tags": {
+          "type": "array",
+          "description": "Tags associated with the blog post.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the image associated with the blog post.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "content",
+        "author",
+        "datePublished",
+        "category"
+      ]
+    },
+    "PopupNotice": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "PopupNotice",
+      "type": "object",
+      "description": "Represents a pop-up notice displayed on the website.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the pop-up notice."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title of the pop-up notice."
+        },
+        "message": {
+          "type": "string",
+          "description": "Message content of the pop-up notice."
+        },
+        "startDate": {
+          "type": "string",
+          "description": "Date and time when the pop-up notice should start being displayed.",
+          "format": "date-time"
+        },
+        "endDate": {
+          "type": "string",
+          "description": "Date and time when the pop-up notice should stop being displayed.",
+          "format": "date-time"
+        },
+        "isActive": {
+          "type": "boolean",
+          "description": "Indicates whether the pop-up notice is currently active."
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "message",
+        "startDate",
+        "endDate",
+        "isActive"
+      ]
+    },
+    "GalleryImage": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "GalleryImage",
+      "type": "object",
+      "description": "Represents an image in the school's gallery.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the gallery image."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the gallery image.",
+          "format": "uri"
+        },
+        "thumbnailUrl": {
+          "type": "string",
+          "description": "URL of the thumbnail image for the gallery.",
+          "format": "uri"
+        },
+        "description": {
+          "type": "string",
+          "description": "Description of the gallery image."
+        },
+        "category": {
+          "type": "string",
+          "description": "Category of the gallery image (e.g., Events, Sports)."
+        },
+        "uploadDate": {
+          "type": "string",
+          "description": "Date and time when the image was uploaded to the gallery.",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "id",
+        "imageUrl",
+        "thumbnailUrl",
+        "description",
+        "category"
+      ]
+    },
+    "StaffProfile": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "StaffProfile",
+      "type": "object",
+      "description": "Represents a staff member's profile.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the staff profile."
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the staff member."
+        },
+        "title": {
+          "type": "string",
+          "description": "Title or position of the staff member."
+        },
+        "bio": {
+          "type": "string",
+          "description": "Biography of the staff member."
+        },
+        "photoUrl": {
+          "type": "string",
+          "description": "URL of the staff member's photo.",
+          "format": "uri"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email address of the staff member.",
+          "format": "email"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "title",
+        "bio",
+        "photoUrl"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/roles_admin/{uid}",
+        "definition": {
+          "entityName": "role_admin",
+          "schema": {
+            "$ref": "#/backend/entities/RoleAdmin"
+          },
+          "description": "Collection to store admin UIDs. Existence of a document indicates admin role.",
+          "params": [
+            {
+              "name": "uid",
+              "description": "User ID of the administrator."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/blogs/{blogId}",
+        "definition": {
+          "entityName": "Blog",
+          "schema": {
+            "$ref": "#/backend/entities/Blog"
+          },
+          "description": "Collection to store blog posts. Only admins can create, update, or delete.",
+          "params": [
+            {
+              "name": "blogId",
+              "description": "Unique ID of the blog post."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/popup_notices/{noticeId}",
+        "definition": {
+          "entityName": "PopupNotice",
+          "schema": {
+            "$ref": "#/backend/entities/PopupNotice"
+          },
+          "description": "Collection to store popup notices. Only admins can create, update, or delete.",
+          "params": [
+            {
+              "name": "noticeId",
+              "description": "Unique ID of the popup notice."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/gallery_images/{imageId}",
+        "definition": {
+          "entityName": "GalleryImage",
+          "schema": {
+            "$ref": "#/backend/entities/GalleryImage"
+          },
+          "description": "Collection to store gallery images. Only admins can create, update, or delete.",
+          "params": [
+            {
+              "name": "imageId",
+              "description": "Unique ID of the gallery image."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/staff_profiles/{profileId}",
+        "definition": {
+          "entityName": "StaffProfile",
+          "schema": {
+            "$ref": "#/backend/entities/StaffProfile"
+          },
+          "description": "Collection to store staff profiles. Only admins can create, update, or delete.",
+          "params": [
+            {
+              "name": "profileId",
+              "description": "Unique ID of the staff profile."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to manage content for the school website, including blog posts, popup notices, gallery images, and staff profiles. It prioritizes clear authorization and data segregation.\n\n*   `/roles_admin/{uid}`: This collection determines admin privileges. The existence of a document with a user's UID grants admin access.\n*   `/blogs/{blogId}`: Stores blog post data. Only admins can create, update, or delete documents in this collection.\n*   `/popup_notices/{noticeId}`: Stores popup notices.  Only admins can manage these notices.\n*   `/gallery_images/{imageId}`: Stores gallery images.  Only admins can manage gallery images.\n*   `/staff_profiles/{profileId}`: Stores staff profiles. Only admins can manage staff profiles.\n\n**Authorization Independence:**\nAuthorization independence is achieved because the access control for blog posts, popup notices, gallery images and staff profiles are controlled by the presence of a user ID in the `/roles_admin` collection. This avoids the need for `get()` calls in security rules, enabling atomic operations.\n\n**QAPs Support:**\n*   The structure supports secure list operations because all documents within each collection (`blogs`, `popup_notices`, `gallery_images`, `staff_profiles`) share the same security requirements (admin-only access). The rules can efficiently check the user's admin status via `/roles_admin/{uid}` to control list access."
+  }
+}

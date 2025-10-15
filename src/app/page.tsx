@@ -104,7 +104,7 @@ function NewsSection() {
 
   return (
     <ScrollReveal>
-      <section className="py-16 md:py-24 bg-secondary">
+      <section className="py-16 md:py-24 bg-background">
         <div className="container">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
             <div>
@@ -241,7 +241,7 @@ function GalleryTeaserSection() {
 
   return (
     <ScrollReveal>
-      <section className="py-16 md:py-24">
+      <section className="py-16 md:py-24 bg-secondary">
         <div className="container">
           <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Glimpses of Xavier's</h2>
           <p className="mt-2 text-muted-foreground text-center">A snapshot of life, learning, and community at our school.</p>
@@ -273,11 +273,13 @@ export default function Home() {
     <>
       <HeroSection />
       <AboutTeaserSection />
+      <PrincipalMessageSection />
       <NewsSection />
+      <GalleryTeaserSection />
       <EventsSection />
       <TestimonialsSection />
-      <GalleryTeaserSection />
-      <PrincipalMessageSection />
     </>
   );
 }
+
+    

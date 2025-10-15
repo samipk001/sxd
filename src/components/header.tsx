@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { LogoIcon } from "./logo";
+import { useUser } from "@/firebase";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -25,6 +26,7 @@ export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
+  const { user } = useUser();
 
   useEffect(() => {
     setIsMounted(true);
@@ -36,7 +38,6 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-
   const NavLink = ({ href, label, className }: { href: string; label: string; className?: string }) => {
     const isActive = href === "/" ? pathname === href : pathname.startsWith(href);
     return (
@@ -45,7 +46,7 @@ export function Header() {
         className={cn(
           "font-headline font-medium transition-colors hover:text-primary",
           isActive ? "text-primary" : "text-foreground/60",
-          className,
+          className
         )}
         onClick={() => setIsMenuOpen(false)}
       >
@@ -55,20 +56,26 @@ export function Header() {
   };
 
   return (
-    <header className={cn("sticky top-0 z-50 w-full border-b transition-all", isMounted && isScrolled ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" : "bg-transparent")}>
+    <header className={cn(
+      "sticky top-0 z-50 w-full border-b transition-all",
+      isMounted && (isScrolled || pathname.startsWith('/admin')) ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" : "bg-transparent",
+      pathname.startsWith('/admin') && 'bg-background'
+    )}>
       <div className="container flex h-20 items-center">
         <Link href="/" className="mr-6 flex items-center gap-2">
           <LogoIcon />
           <span className="hidden font-bold sm:inline-block font-headline text-lg text-primary">St. Xavier's School</span>
         </Link>
-        <nav className="hidden items-center gap-4 text-sm md:flex">
+        <nav className="hidden items-center gap-6 text-sm md:flex">
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}
         </nav>
         <div className="flex flex-1 items-center justify-end gap-4">
-           <Button asChild className="rounded-full font-bold shadow-sm">
-              <Link href="#">Portal Login</Link>
+           <Button asChild className="rounded-full bg-gradient-to-r from-primary via-blue-500 to-accent text-primary-foreground font-headline font-bold shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl relative group">
+              <Link href={user ? "/admin/dashboard" : "/admin/login"}>
+                <span className="transition-all duration-300 group-hover:tracking-wider">Portal Login</span>
+              </Link>
            </Button>
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>

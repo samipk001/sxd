@@ -61,7 +61,7 @@ export function Header() {
           <LogoIcon />
           <span className="hidden font-bold sm:inline-block font-headline text-lg text-primary">St. Xavier's School</span>
         </Link>
-        <nav className="hidden items-center gap-6 text-sm md:flex">
+        <nav className="hidden items-center gap-4 text-sm md:flex">
           {navLinks.map((link) => (
             <NavLink key={link.href} {...link} />
           ))}

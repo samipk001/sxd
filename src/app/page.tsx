@@ -34,7 +34,6 @@ function HeroSection() {
         </p>
         <Button asChild size="lg" className="mt-8 rounded-full bg-gradient-to-r from-primary via-blue-500 to-accent text-primary-foreground font-headline font-bold shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl relative group">
           <Link href="/admissions">
-            <span className="absolute inset-0 h-full w-full bg-accent/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
             <span className="relative flex items-center transition-all duration-300 group-hover:tracking-wider">
               Enroll Now <ArrowRight className="ml-2 h-5 w-5" />
             </span>
@@ -106,7 +105,7 @@ function NewsSection() {
     <ScrollReveal>
       <section className="py-16 md:py-24 bg-background">
         <div className="container">
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
             <div>
               <h2 className="font-headline text-3xl md:text-4xl font-bold">Latest News & Updates</h2>
               <p className="mt-2 text-muted-foreground">Stay informed about the latest happenings at our school.</p>

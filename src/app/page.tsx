@@ -256,9 +256,10 @@ function GalleryTeaserSection() {
             ))}
           </div>
           <div className="text-center mt-12">
-            <Button asChild size="lg" variant="outline">
+            <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary via-blue-500 to-accent text-primary-foreground font-headline font-bold shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl relative group">
               <Link href="/gallery">
-                <Camera className="mr-2 h-5 w-5" /> View Full Gallery
+                <Camera className="mr-2 h-5 w-5 transition-transform duration-300 group-hover:rotate-12" /> 
+                <span className="transition-all duration-300 group-hover:tracking-wider">View Full Gallery</span>
               </Link>
             </Button>
           </div>

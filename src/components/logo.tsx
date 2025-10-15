@@ -9,7 +9,7 @@ export function LogoIcon({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     >
       <Image
-        src="/logo.png"
+        src="/logo.jpg"
         alt="St. Xavier's School Deonia Logo"
         fill
         className="object-contain"

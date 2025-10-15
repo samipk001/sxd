@@ -40,7 +40,7 @@ function HeroSection() {
 }
 
 function AboutTeaserSection() {
-  const aboutImage = PlaceHolderImages.find(p => p.id === 'hero');
+  const aboutImage = PlaceHolderImages.find(p => p.id === 'students');
   return (
     <ScrollReveal>
       <section className="py-16 md:py-24 bg-background">
@@ -85,7 +85,7 @@ function NewsSection() {
           <Carousel opts={{ align: "start", loop: true }} className="w-full">
             <CarouselContent>
               {featuredPosts.map((post: BlogPost) => {
-                const postImage = PlaceHolderImages.find(p => p.id === 'hero');
+                const postImage = PlaceHolderImages.find(p => p.id === 'ceremony');
                 return (
                   <CarouselItem key={post.id} className="md:basis-1/2 lg:basis-1/3">
                     <div className="p-1">

@@ -7,11 +7,17 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
-const allImages = PlaceHolderImages.filter(p => p.id.startsWith('hero'));
+const allImages = PlaceHolderImages.filter(p => !p.id.startsWith('testimonial'));
 const categories = ["All", "Events", "Sports", "Academics", "Campus"];
 
 const imageCategories: { [key: string]: string[] } = {
-  hero: ["Academics", "Campus", "Events", "Sports"],
+  hero: ["Campus"],
+  principal: ["Academics"],
+  art: ["Academics", "Events"],
+  captain: ["Sports", "Events"],
+  ceremony: ["Events", "Academics"],
+  farewell: ["Events"],
+  students: ["Campus"],
 };
 
 function PageHeader() {
@@ -78,7 +84,7 @@ export default function GalleryPage() {
         <DialogContent className="max-w-4xl p-0 border-0">
             {selectedImage && (
                 <Image
-                    src={selectedImage.imageUrl.replace(/\d+\/\d+$/, '1200/800')}
+                    src={selectedImage.imageUrl}
                     alt={selectedImage.description}
                     width={1200}
                     height={800}

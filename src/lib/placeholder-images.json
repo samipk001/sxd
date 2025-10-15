@@ -2,15 +2,45 @@
   "placeholderImages": [
     {
       "id": "hero",
-      "description": "School campus view with students",
-      "imageUrl": "https://storage.googleapis.com/st-xavier-s-deonia-images/school_campus.jpg",
+      "description": "School campus panoramic view",
+      "imageUrl": "https://i.postimg.cc/hzJdmxNh/pano.jpg",
       "imageHint": "school campus"
     },
     {
       "id": "principal",
-      "description": "Portrait of a smiling school principal",
-      "imageUrl": "https://picsum.photos/seed/principal/400/400",
+      "description": "Portrait of the school principal",
+      "imageUrl": "https://i.postimg.cc/CBWfs5VR/father-jpg.jpg",
       "imageHint": "professional portrait"
+    },
+    {
+      "id": "art",
+      "description": "Student art display",
+      "imageUrl": "https://i.postimg.cc/9wZw82WS/art.jpg",
+      "imageHint": "student art"
+    },
+    {
+      "id": "captain",
+      "description": "School captain receiving an award",
+      "imageUrl": "https://i.postimg.cc/RqHtV7cY/capt.jpg",
+      "imageHint": "student award"
+    },
+    {
+      "id": "ceremony",
+      "description": "School awards ceremony",
+      "imageUrl": "https://i.postimg.cc/D4L4jh2L/ceremony.jpg",
+      "imageHint": "school ceremony"
+    },
+    {
+      "id": "farewell",
+      "description": "Students at a farewell event",
+      "imageUrl": "https://i.postimg.cc/Fd2JVzQy/farewell.jpg",
+      "imageHint": "student event"
+    },
+    {
+      "id": "students",
+      "description": "Group of students in uniform",
+      "imageUrl": "https://i.postimg.cc/BLd1BbGb/schoolstud.jpg",
+      "imageHint": "school students"
     },
     {
       "id": "testimonial1",

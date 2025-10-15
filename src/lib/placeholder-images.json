@@ -1,3 +1,106 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero",
+      "description": "School campus view with students",
+      "imageUrl": "https://picsum.photos/seed/hero/1920/1080",
+      "imageHint": "school campus"
+    },
+    {
+      "id": "about",
+      "description": "Modern school building exterior",
+      "imageUrl": "https://picsum.photos/seed/about/800/600",
+      "imageHint": "school building"
+    },
+    {
+      "id": "principal",
+      "description": "Portrait of a smiling school principal",
+      "imageUrl": "https://picsum.photos/seed/principal/400/400",
+      "imageHint": "professional portrait"
+    },
+    {
+      "id": "gallery1",
+      "description": "Students collaborating in a bright classroom",
+      "imageUrl": "https://picsum.photos/seed/gallery1/600/800",
+      "imageHint": "students classroom"
+    },
+    {
+      "id": "gallery2",
+      "description": "Students running a race on sports day",
+      "imageUrl": "https://picsum.photos/seed/gallery2/800/600",
+      "imageHint": "students sports"
+    },
+    {
+      "id": "gallery3",
+      "description": "Students conducting an experiment in a science lab",
+      "imageUrl": "https://picsum.photos/seed/gallery3/800/600",
+      "imageHint": "science lab"
+    },
+    {
+      "id": "gallery4",
+      "description": "Student painting on a canvas in art class",
+      "imageUrl": "https://picsum.photos/seed/gallery4/600/800",
+      "imageHint": "art class"
+    },
+    {
+      "id": "gallery5",
+      "description": "Full view of a school assembly in an auditorium",
+      "imageUrl": "https://picsum.photos/seed/gallery5/800/600",
+      "imageHint": "school assembly"
+    },
+    {
+      "id": "gallery6",
+      "description": "A well-lit school library with students reading",
+      "imageUrl": "https://picsum.photos/seed/gallery6/800/600",
+      "imageHint": "school library"
+    },
+    {
+      "id": "blog1",
+      "description": "Students performing on stage during annual day",
+      "imageUrl": "https://picsum.photos/seed/blog1/800/450",
+      "imageHint": "school event"
+    },
+    {
+      "id": "blog2",
+      "description": "Students planting saplings in a field",
+      "imageUrl": "https://picsum.photos/seed/blog2/800/450",
+      "imageHint": "students outdoors"
+    },
+    {
+      "id": "blog3",
+      "description": "Students working on laptops in a coding workshop",
+      "imageUrl": "https://picsum.photos/seed/blog3/800/450",
+      "imageHint": "students computers"
+    },
+    {
+      "id": "testimonial1",
+      "description": "Portrait of a confident graduate",
+      "imageUrl": "https://picsum.photos/seed/testimonial1/100/100",
+      "imageHint": "student portrait"
+    },
+    {
+      "id": "testimonial2",
+      "description": "Portrait of a smiling parent",
+      "imageUrl": "https://picsum.photos/seed/testimonial2/100/100",
+      "imageHint": "parent portrait"
+    },
+    {
+      "id": "pano1",
+      "description": "Panoramic view of a sprawling school playground",
+      "imageUrl": "https://picsum.photos/seed/pano1/1600/600",
+      "imageHint": "playground panorama"
+    },
+    {
+      "id": "pano2",
+      "description": "Panoramic view of a modern school auditorium",
+      "imageUrl": "https://picsum.photos/seed/pano2/1600/600",
+      "imageHint": "auditorium panorama"
+    },
+    {
+      "id": "contact_map",
+      "description": "Abstract map of a city",
+      "imageUrl": "https://picsum.photos/seed/map/1200/400",
+      "imageHint": "city map"
+    }
+  ]
 }

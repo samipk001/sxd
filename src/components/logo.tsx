@@ -9,7 +9,7 @@ export function LogoIcon({ className, ...props }: React.ComponentProps<"div">) {
       {...props}
     >
       <Image
-        src="https://storage.googleapis.com/st-xavier-s-deonia-images/logo.png"
+        src="/logo.png"
         alt="St. Xavier's School Deonia Logo"
         width={160}
         height={160}

@@ -65,8 +65,8 @@ export function Header() {
             <NavLink key={link.href} {...link} />
           ))}
         </nav>
-        <div className="flex flex-1 items-center justify-end gap-2">
-           <Button asChild variant="outline" className="rounded-full border-2 border-primary text-primary font-bold transition-all hover:bg-primary hover:text-primary-foreground">
+        <div className="flex flex-1 items-center justify-end gap-4">
+           <Button asChild className="rounded-full font-bold shadow-sm">
               <Link href="#">Portal Login</Link>
            </Button>
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>

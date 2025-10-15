@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -96,7 +97,7 @@ export function ContactForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" size="lg" disabled={form.formState.isSubmitting}>
+        <Button type="submit" size="lg" className="rounded-full bg-gradient-to-r from-primary via-blue-500 to-accent text-primary-foreground font-headline font-bold shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl relative group" disabled={form.formState.isSubmitting}>
           {form.formState.isSubmitting ? "Sending..." : "Send Message"}
         </Button>
       </form>

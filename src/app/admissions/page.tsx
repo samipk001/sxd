@@ -1,4 +1,6 @@
+
 import Image from "next/image";
+import Link from "next/link";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
@@ -55,7 +57,11 @@ function AdmissionProcessSection() {
             ))}
           </div>
           <div className="text-center mt-8">
-              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">Apply Now</Button>
+              <Button asChild size="lg" className="rounded-full bg-gradient-to-r from-primary via-blue-500 to-accent text-primary-foreground font-headline font-bold shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl relative group">
+                <Link href="#">
+                    <span className="transition-all duration-300 group-hover:tracking-wider">Apply Now</span>
+                </Link>
+              </Button>
           </div>
         </div>
       </section>

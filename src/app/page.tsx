@@ -32,10 +32,10 @@ function HeroSection() {
         <p className="mt-4 text-xl md:text-2xl font-semibold text-accent">
           "Live for God, Lead for Nepal"
         </p>
-        <Button asChild size="lg" className="mt-8 rounded-full border-2 border-transparent bg-accent px-8 text-lg font-bold text-accent-foreground shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:border-accent hover:bg-transparent hover:text-accent group relative overflow-hidden">
+        <Button asChild size="lg" className="mt-8 rounded-full bg-gradient-to-r from-primary via-blue-500 to-accent text-primary-foreground font-headline font-bold shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl relative group">
           <Link href="/admissions">
-          <span className="absolute inset-0 h-full w-full bg-accent/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-            <span className="relative flex items-center">
+            <span className="absolute inset-0 h-full w-full bg-accent/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <span className="relative flex items-center transition-all duration-300 group-hover:tracking-wider">
               Enroll Now <ArrowRight className="ml-2 h-5 w-5" />
             </span>
           </Link>
@@ -111,8 +111,10 @@ function NewsSection() {
               <h2 className="font-headline text-3xl md:text-4xl font-bold">Latest News & Updates</h2>
               <p className="mt-2 text-muted-foreground">Stay informed about the latest happenings at our school.</p>
             </div>
-            <Button asChild variant="outline" className="mt-4 md:mt-0">
-               <Link href="/blog">View All News</Link>
+            <Button asChild size="lg" className="mt-4 md:mt-0 rounded-full bg-gradient-to-r from-primary via-blue-500 to-accent text-primary-foreground font-headline font-bold shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:shadow-xl relative group">
+               <Link href="/blog">
+                 <span className="transition-all duration-300 group-hover:tracking-wider">View All News</span>
+               </Link>
             </Button>
           </div>
           <Carousel opts={{ align: "start", loop: true }} className="w-full">
@@ -241,7 +243,7 @@ function GalleryTeaserSection() {
 
   return (
     <ScrollReveal>
-      <section className="py-16 md:py-24 bg-secondary">
+      <section className="py-16 md:py-24 bg-background">
         <div className="container">
           <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Glimpses of Xavier's</h2>
           <p className="mt-2 text-muted-foreground text-center">A snapshot of life, learning, and community at our school.</p>
@@ -282,5 +284,3 @@ export default function Home() {
     </>
   );
 }
-
-    

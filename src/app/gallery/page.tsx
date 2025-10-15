@@ -22,8 +22,8 @@ const imageCategories: { [key: string]: string[] } = {
 function PageHeader() {
   const headerImage = PlaceHolderImages.find(p => p.id === 'gallery2');
   return (
-    <section className="relative h-64 w-full parallax">
-      {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10" data-ai-hint={headerImage.imageHint}/>}
+    <section className="relative h-64 w-full">
+      {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10 parallax" data-ai-hint={headerImage.imageHint}/>}
       <div className="absolute inset-0 bg-primary/60" />
       <div className="container relative z-10 flex h-full items-center justify-center">
         <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary-foreground">School Gallery</h1>
@@ -60,7 +60,7 @@ export default function GalleryPage() {
           <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
             {filteredImages.map(image => (
               <div key={image.id} className="break-inside-avoid" onClick={() => setSelectedImage(image)}>
-                <div className="relative w-full h-auto rounded-lg overflow-hidden cursor-pointer group shadow-md">
+                <div className="relative w-full h-auto rounded-lg overflow-hidden cursor-pointer group shadow-md transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
                     <Image
                       src={image.imageUrl}
                       alt={image.description}

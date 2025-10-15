@@ -3,6 +3,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Award, BookOpen, Dna, Palette } from "lucide-react";
 import { ScrollReveal } from "@/components/scroll-reveal";
+import { Card } from "@/components/ui/card";
 
 export const metadata = {
   title: "Academics | Xavier's Deonia Hub",
@@ -11,8 +12,8 @@ export const metadata = {
 function PageHeader() {
   const headerImage = PlaceHolderImages.find(p => p.id === 'gallery6');
   return (
-    <section className="relative h-64 w-full parallax">
-      {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10" data-ai-hint={headerImage.imageHint}/>}
+    <section className="relative h-64 w-full">
+      {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10 parallax" data-ai-hint={headerImage.imageHint}/>}
       <div className="absolute inset-0 bg-primary/60" />
       <div className="container relative z-10 flex h-full items-center justify-center">
         <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary-foreground">Academics & Curriculum</h1>
@@ -78,13 +79,13 @@ function ExtracurricularSection() {
                     <p className="mt-2 text-muted-foreground text-center">We believe in the all-round development of our students.</p>
                     <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                         {activities.map(activity => (
-                            <div key={activity.title} className="text-center p-6 bg-background rounded-lg shadow-sm">
+                            <Card key={activity.title} className="text-center p-6 bg-background shadow-sm transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
                                 <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent text-accent-foreground mb-4">
                                     <activity.icon className="h-8 w-8" />
                                 </div>
                                 <h3 className="font-semibold text-lg">{activity.title}</h3>
                                 <p className="mt-2 text-sm text-muted-foreground">{activity.description}</p>
-                            </div>
+                            </Card>
                         ))}
                     </div>
                 </div>

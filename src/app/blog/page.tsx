@@ -14,8 +14,8 @@ const categories = ["All Categories", ...Array.from(new Set(blogPosts.map(p => p
 function PageHeader() {
   const headerImage = PlaceHolderImages.find(p => p.id === 'blog1');
   return (
-    <section className="relative h-64 w-full parallax">
-      {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10" data-ai-hint={headerImage.imageHint}/>}
+    <section className="relative h-64 w-full">
+      {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10 parallax" data-ai-hint={headerImage.imageHint}/>}
       <div className="absolute inset-0 bg-primary/60" />
       <div className="container relative z-10 flex h-full items-center justify-center">
         <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary-foreground">News & Events</h1>
@@ -65,10 +65,10 @@ export default function BlogPage() {
                 {filteredPosts.map(post => {
                     const postImage = PlaceHolderImages.find(p => p.id === post.imageId);
                     return (
-                        <Card key={post.id} className="overflow-hidden h-full flex flex-col">
+                        <Card key={post.id} className="overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
                             <Link href={`/blog/${post.slug}`} className="flex flex-col h-full">
-                                <div className="relative h-56 w-full">
-                                    {postImage && <Image src={postImage.imageUrl} alt={post.title} fill className="object-cover transition-transform duration-500 hover:scale-105" data-ai-hint={postImage.imageHint} />}
+                                <div className="relative h-56 w-full overflow-hidden">
+                                    {postImage && <Image src={postImage.imageUrl} alt={post.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" data-ai-hint={postImage.imageHint} />}
                                 </div>
                                 <CardContent className="p-6 flex flex-col flex-grow">
                                     <p className="text-sm text-primary font-semibold">{post.category}</p>

@@ -11,8 +11,8 @@ export const metadata = {
 function PageHeader() {
   const headerImage = PlaceHolderImages.find(p => p.id === 'about');
   return (
-    <section className="relative h-64 w-full parallax">
-      {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10" data-ai-hint={headerImage.imageHint} />}
+    <section className="relative h-64 w-full">
+      {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10 parallax" data-ai-hint={headerImage.imageHint} />}
       <div className="absolute inset-0 bg-primary/60" />
       <div className="container relative z-10 flex h-full items-center justify-center">
         <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary-foreground">About St. Xavier's School</h1>
@@ -50,7 +50,7 @@ function PrincipalMessageSection() {
     <ScrollReveal>
         <section className="py-16 md:py-24 bg-secondary">
           <div className="container">
-            <Card className="overflow-hidden">
+            <Card className="overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-2">
               <div className="grid md:grid-cols-3 items-center">
                 <div className="relative h-64 md:h-full w-full md:col-span-1">
                   {principalImage && <Image src={principalImage.imageUrl} alt="Message from the Principal" fill className="object-cover" data-ai-hint={principalImage.imageHint} />}
@@ -88,7 +88,7 @@ function FacultySection() {
                         {faculty.map(member => {
                             const image = PlaceHolderImages.find(p => p.id === member.imageId);
                             return (
-                                <Card key={member.name} className="text-center p-6">
+                                <Card key={member.name} className="text-center p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
                                     <Avatar className="h-24 w-24 mx-auto">
                                         {image && <AvatarImage src={image.imageUrl} alt={member.name} data-ai-hint={image.imageHint} />}
                                         <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>

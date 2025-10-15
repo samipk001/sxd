@@ -59,8 +59,9 @@
 }
 
 .parallax {
-  background-attachment: fixed;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  transform: translateZ(-1px) scale(1.5);
+}
+
+.preserve-3d {
+  transform-style: preserve-3d;
 }

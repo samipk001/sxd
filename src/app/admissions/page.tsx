@@ -12,8 +12,8 @@ export const metadata = {
 function PageHeader() {
   const headerImage = PlaceHolderImages.find(p => p.id === 'gallery1');
   return (
-    <section className="relative h-64 w-full parallax">
-      {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10" data-ai-hint={headerImage.imageHint}/>}
+    <section className="relative h-64 w-full">
+      {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10 parallax" data-ai-hint={headerImage.imageHint}/>}
       <div className="absolute inset-0 bg-primary/60" />
       <div className="container relative z-10 flex h-full items-center justify-center">
         <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary-foreground">Admissions</h1>
@@ -40,14 +40,14 @@ function AdmissionProcessSection() {
             {steps.map((step, index) => (
               <div key={step.step} className={`flex md:items-center my-8 flex-col md:flex-row ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
                 <div className="md:w-5/12">
-                  <div className={`p-6 bg-secondary rounded-lg shadow-sm ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+                  <div className={`p-6 bg-secondary rounded-lg shadow-sm transition-transform duration-300 hover:scale-105 ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
                     <h3 className="font-headline text-xl font-bold">Step {step.step}: {step.title}</h3>
                     <p className="mt-2 text-muted-foreground">{step.description}</p>
                   </div>
                 </div>
                 <div className="hidden md:block md:w-2/12">
                   <div className="relative">
-                    <div className="absolute left-1/2 -translate-x-1/2 -top-3 w-6 h-6 rounded-full bg-primary border-4 border-secondary"></div>
+                    <div className="absolute left-1/2 -translate-x-1/2 -top-3 w-6 h-6 rounded-full bg-primary border-4 border-background shadow-md"></div>
                   </div>
                 </div>
                 <div className="w-5/12"></div>

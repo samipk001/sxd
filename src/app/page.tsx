@@ -1,6 +1,7 @@
+
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Calendar, Megaphone, Quote, Star, MapPin, Phone, Mail } from "lucide-react";
+import { ArrowRight, Calendar, Megaphone, Quote, Star, MapPin, Phone, Mail, Camera } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
@@ -67,6 +68,33 @@ function AboutTeaserSection() {
           </div>
         </div>
       </section>
+    </ScrollReveal>
+  );
+}
+
+function PrincipalMessageSection() {
+  const principalImage = PlaceHolderImages.find(p => p.id === 'principal');
+  return (
+    <ScrollReveal>
+        <section className="py-16 md:py-24 bg-secondary">
+          <div className="container">
+            <Card className="overflow-hidden shadow-lg">
+              <div className="grid md:grid-cols-3 items-center">
+                <div className="relative h-64 md:h-full w-full md:col-span-1">
+                  {principalImage && <Image src={principalImage.imageUrl} alt="Message from the Principal" fill className="object-cover" data-ai-hint={principalImage.imageHint} />}
+                </div>
+                <div className="p-8 md:p-12 md:col-span-2">
+                  <h2 className="font-headline text-3xl font-bold">A Message from the Principal</h2>
+                  <blockquote className="mt-4 border-l-4 border-accent pl-4 italic text-muted-foreground">
+                    "Welcome to St. Xavier's. Here, we don't just educate; we build character. Our goal is to nurture the leaders of tomorrow who are not only academically proficient but also morally grounded and socially responsible."
+                  </blockquote>
+                  <p className="mt-4 font-semibold">Fr. John Doe, S.J.</p>
+                  <p className="text-sm text-muted-foreground">Principal, St. Xavier's School, Deonia</p>
+                </div>
+              </div>
+            </Card>
+          </div>
+        </section>
     </ScrollReveal>
   );
 }
@@ -208,14 +236,51 @@ function TestimonialsSection() {
   );
 }
 
+function GalleryTeaserSection() {
+  const galleryImages = PlaceHolderImages.filter(p => ['captain', 'art', 'ceremony', 'students'].includes(p.id)).slice(0, 4);
+
+  return (
+    <ScrollReveal>
+      <section className="py-16 md:py-24">
+        <div className="container">
+          <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Glimpses of Xavier's</h2>
+          <p className="mt-2 text-muted-foreground text-center">A snapshot of life, learning, and community at our school.</p>
+          <div className="mt-12 grid grid-cols-2 lg:grid-cols-4 gap-4">
+            {galleryImages.map((image, index) => (
+              <div key={image.id} className="relative aspect-[4/3] rounded-lg overflow-hidden shadow-lg group">
+                <Link href="/gallery">
+                  <Image src={image.imageUrl} alt={image.description} fill className="object-cover transition-transform duration-300 group-hover:scale-110" data-ai-hint={image.imageHint} />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </Link>
+              </div>
+            ))}
+          </div>
+          <div className="text-center mt-12">
+            <Button asChild size="lg">
+              <Link href="/gallery">
+                <Camera className="mr-2 h-5 w-5" /> View Full Gallery
+              </Link>
+            </Button>
+          </div>
+        </div>
+      </section>
+    </ScrollReveal>
+  );
+}
+
 export default function Home() {
   return (
     <>
       <HeroSection />
       <AboutTeaserSection />
       <NewsSection />
+      <PrincipalMessageSection />
       <EventsSection />
       <TestimonialsSection />
+      <GalleryTeaserSection />
     </>
   );
 }
+
+
+    

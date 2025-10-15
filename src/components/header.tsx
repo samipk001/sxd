@@ -36,6 +36,7 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+
   const NavLink = ({ href, label, className }: { href: string; label: string; className?: string }) => {
     const isActive = href === "/" ? pathname === href : pathname.startsWith(href);
     return (
@@ -54,7 +55,7 @@ export function Header() {
   };
 
   return (
-    <header className={cn("sticky top-0 z-50 w-full border-b transition-all", isMounted && isScrolled ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" : "bg-transparent border-transparent")}>
+    <header className={cn("sticky top-0 z-50 w-full border-b transition-all", isMounted && isScrolled ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" : "bg-transparent")}>
       <div className="container flex h-20 items-center">
         <Link href="/" className="mr-6 flex items-center gap-2">
           <LogoIcon />

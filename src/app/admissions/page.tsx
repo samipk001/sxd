@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 function PageHeader() {
-  const headerImage = PlaceHolderImages.find(p => p.id === 'gallery1');
+  const headerImage = PlaceHolderImages.find(p => p.id === 'hero');
   return (
     <section className="relative h-64 w-full">
       {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10 parallax" data-ai-hint={headerImage.imageHint}/>}
@@ -103,10 +103,7 @@ function FeeStructureSection() {
 }
 
 function VirtualTourSection() {
-    const panoramicImages = [
-        PlaceHolderImages.find(p => p.id === 'pano1'),
-        PlaceHolderImages.find(p => p.id === 'pano2'),
-    ].filter(Boolean);
+    const heroImage = PlaceHolderImages.find(p => p.id === 'hero');
 
     return (
         <ScrollReveal>
@@ -116,16 +113,16 @@ function VirtualTourSection() {
                     <p className="mt-2 text-muted-foreground text-center">Explore our campus from the comfort of your home.</p>
                     <Carousel className="mt-12 w-full max-w-6xl mx-auto" opts={{ loop: true }}>
                         <CarouselContent>
-                            {panoramicImages.map((image, index) => image && (
-                                <CarouselItem key={index}>
+                            {heroImage && (
+                                <CarouselItem>
                                     <div className="relative h-96 w-full rounded-lg overflow-hidden shadow-lg">
-                                        <Image src={image.imageUrl} alt={image.description} fill className="object-cover" data-ai-hint={image.imageHint}/>
+                                        <Image src={heroImage.imageUrl} alt={heroImage.description} fill className="object-cover" data-ai-hint={heroImage.imageHint}/>
                                         <div className="absolute inset-0 bg-black/20 flex items-end p-8">
-                                            <h3 className="text-white font-headline text-2xl">{image.description}</h3>
+                                            <h3 className="text-white font-headline text-2xl">{heroImage.description}</h3>
                                         </div>
                                     </div>
                                 </CarouselItem>
-                            ))}
+                            )}
                         </CarouselContent>
                         <CarouselPrevious />
                         <CarouselNext />

@@ -21,7 +21,7 @@ function getPostData(slug: string) {
     const post = blogPosts.find(p => p.slug === slug);
     if (!post) return null;
     
-    const postImage = PlaceHolderImages.find(p => p.id === post.imageId);
+    const postImage = PlaceHolderImages.find(p => p.id === 'hero');
     const authorImage = PlaceHolderImages.find(p => p.id === 'principal');
     const relatedPosts = blogPosts.filter(p => p.category === post.category && p.id !== post.id).slice(0,2);
     
@@ -103,7 +103,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
                 <h2 className="font-headline text-2xl font-bold mb-6">Related Articles</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {relatedPosts.map(relatedPost => {
-                        const relatedImage = PlaceHolderImages.find(p => p.id === relatedPost.imageId);
+                        const relatedImage = PlaceHolderImages.find(p => p.id === 'hero');
                         return(
                             <Card key={relatedPost.id} className="overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
                                 <Link href={`/blog/${relatedPost.slug}`}>

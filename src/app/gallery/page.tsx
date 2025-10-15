@@ -7,20 +7,15 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
-const allImages = PlaceHolderImages.filter(p => p.id.startsWith('gallery'));
+const allImages = PlaceHolderImages.filter(p => p.id.startsWith('hero'));
 const categories = ["All", "Events", "Sports", "Academics", "Campus"];
 
 const imageCategories: { [key: string]: string[] } = {
-  gallery1: ["Academics", "Campus"],
-  gallery2: ["Sports", "Events"],
-  gallery3: ["Academics"],
-  gallery4: ["Academics", "Arts"],
-  gallery5: ["Events", "Campus"],
-  gallery6: ["Academics", "Campus"],
+  hero: ["Academics", "Campus", "Events", "Sports"],
 };
 
 function PageHeader() {
-  const headerImage = PlaceHolderImages.find(p => p.id === 'gallery2');
+  const headerImage = PlaceHolderImages.find(p => p.id === 'hero');
   return (
     <section className="relative h-64 w-full">
       {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10 parallax" data-ai-hint={headerImage.imageHint}/>}
@@ -64,8 +59,8 @@ export default function GalleryPage() {
                     <Image
                       src={image.imageUrl}
                       alt={image.description}
-                      width={600}
-                      height={800}
+                      width={800}
+                      height={600}
                       className="w-full h-auto transition-transform duration-300 group-hover:scale-105"
                       data-ai-hint={image.imageHint}
                     />

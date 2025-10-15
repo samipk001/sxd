@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 function PageHeader() {
-  const headerImage = PlaceHolderImages.find(p => p.id === 'contact_map');
+  const headerImage = PlaceHolderImages.find(p => p.id === 'hero');
   return (
     <section className="relative h-96 w-full">
       {headerImage && <Image src={headerImage.imageUrl} alt="Map" fill className="object-cover" data-ai-hint={headerImage.imageHint}/>}

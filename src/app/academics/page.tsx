@@ -10,7 +10,7 @@ export const metadata = {
 };
 
 function PageHeader() {
-  const headerImage = PlaceHolderImages.find(p => p.id === 'gallery6');
+  const headerImage = PlaceHolderImages.find(p => p.id === 'hero');
   return (
     <section className="relative h-64 w-full">
       {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10 parallax" data-ai-hint={headerImage.imageHint}/>}

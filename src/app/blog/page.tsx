@@ -12,7 +12,7 @@ import { Card, CardContent } from '@/components/ui/card';
 const categories = ["All Categories", ...Array.from(new Set(blogPosts.map(p => p.category)))];
 
 function PageHeader() {
-  const headerImage = PlaceHolderImages.find(p => p.id === 'blog1');
+  const headerImage = PlaceHolderImages.find(p => p.id === 'hero');
   return (
     <section className="relative h-64 w-full">
       {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10 parallax" data-ai-hint={headerImage.imageHint}/>}
@@ -63,7 +63,7 @@ export default function BlogPage() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {filteredPosts.map(post => {
-                    const postImage = PlaceHolderImages.find(p => p.id === post.imageId);
+                    const postImage = PlaceHolderImages.find(p => p.id === 'hero');
                     return (
                         <Card key={post.id} className="overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
                             <Link href={`/blog/${post.slug}`} className="flex flex-col h-full">

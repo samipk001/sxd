@@ -3,13 +3,10 @@
 import { useForm, type SubmitHandler, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { useFirestore, useUser, useCollection, useMemoFirebase } from '@/firebase';
+import { useFirestore, useUser, useCollection, useMemoFirebase, setDocumentNonBlocking, addDocumentNonBlocking, deleteDocumentNonBlocking } from '@/firebase';
 import {
   collection,
   doc,
-  addDoc,
-  updateDoc,
-  deleteDoc,
   serverTimestamp,
 } from 'firebase/firestore';
 import { Button } from '@/components/ui/button';
@@ -29,7 +26,7 @@ const blogSchema = z.object({
 });
 
 type BlogFormValues = z.infer<typeof blogSchema>;
-type BlogDocument = BlogFormValues & { id: string; author: string; datePublished: any };
+type BlogDocument = BlogFormValues & { id: string; author: string; datePublished: any, slug: string };
 
 export default function BlogsAdminPage() {
   const { toast } = useToast();
@@ -60,34 +57,28 @@ export default function BlogsAdminPage() {
 
   const onSubmit: SubmitHandler<BlogFormValues & { id?: string }> = async (data) => {
     if (!firestore || !user) return;
-    try {
-      const { id, ...blogData } = data;
-      if (id) {
-        // Update existing blog
-        const blogRef = doc(firestore, 'blogs', id);
-        await updateDoc(blogRef, {
-          ...blogData,
-          author: user.email || 'Admin',
-        });
-        toast({ title: 'Success', description: 'Blog post updated.' });
-      } else {
-        // Add new blog
-        await addDoc(collection(firestore, 'blogs'), {
-          ...blogData,
-          author: user.email || 'Admin',
-          datePublished: serverTimestamp(),
-          slug: data.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, ''),
-        });
-        toast({ title: 'Success', description: 'Blog post added.' });
-      }
-      resetForm();
-    } catch (error: any) {
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: error.message,
+
+    const { id, ...blogData } = data;
+    const slug = blogData.title.toLowerCase().replace(/\s+/g, '-').replace(/[^\w-]+/g, '');
+
+    if (id) {
+      const blogRef = doc(firestore, 'blogs', id);
+      setDocumentNonBlocking(blogRef, {
+        ...blogData,
+        author: user.email || 'Admin',
+        slug: slug,
+      }, { merge: true });
+      toast({ title: 'Success', description: 'Blog post updated.' });
+    } else {
+      addDocumentNonBlocking(collection(firestore, 'blogs'), {
+        ...blogData,
+        author: user.email || 'Admin',
+        datePublished: serverTimestamp(),
+        slug: slug,
       });
+      toast({ title: 'Success', description: 'Blog post added.' });
     }
+    resetForm();
   };
   
   const resetForm = () => {
@@ -104,17 +95,9 @@ export default function BlogsAdminPage() {
   
   const handleDelete = async (blogId: string) => {
     if (!firestore || !confirm('Are you sure you want to delete this post?')) return;
-    try {
-      await deleteDoc(doc(firestore, 'blogs', blogId));
-      toast({ title: 'Success', description: 'Blog post deleted.' });
-      if(currentBlogId === blogId) resetForm();
-    } catch (error: any) {
-      toast({
-        variant: 'destructive',
-        title: 'Error',
-        description: error.message,
-      });
-    }
+    deleteDocumentNonBlocking(doc(firestore, 'blogs', blogId));
+    toast({ title: 'Success', description: 'Blog post deleted.' });
+    if(currentBlogId === blogId) resetForm();
   }
 
   return (

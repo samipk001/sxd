@@ -9,6 +9,7 @@ import { ArrowLeft } from 'lucide-react';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { motion, useScroll } from 'framer-motion';
+import { format } from 'date-fns';
 
 type BlogPostClientPageProps = {
   post: BlogPost;
@@ -49,25 +50,18 @@ export function BlogPostClientPage({ post, postImage, authorImage, relatedPosts 
                            <span>{post.author}</span>
                       </div>
                      <span>&bull;</span>
-                     <time dateTime={post.date}>{post.date}</time>
+                     <time dateTime={post.datePublished.toDate().toISOString()}>{format(post.datePublished.toDate(), 'MMMM dd, yyyy')}</time>
                   </div>
                 </header>
 
                 {postImage && (
                   <div className="relative h-[450px] w-full rounded-lg overflow-hidden mb-8 shadow-lg">
-                    <Image src={postImage.imageUrl} alt={post.title} fill className="object-cover" priority data-ai-hint={postImage.imageHint}/>
+                    <Image src={post.imageUrl} alt={post.title} fill className="object-cover" priority data-ai-hint={postImage.imageHint}/>
                   </div>
                 )}
 
-                <div className="prose prose-lg dark:prose-invert max-w-none text-foreground leading-relaxed">
-                  <p className="lead text-xl">{post.excerpt}</p>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.</p>
-                  <p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem. Proin ut ligula vel nunc egestas porttitor.</p>
-                  <blockquote className="border-l-4 border-accent pl-4 italic">
-                      "The future belongs to those who believe in the beauty of their dreams." - Eleanor Roosevelt
-                  </blockquote>
-                  <p>Morbi lectus risus, iaculis vel, suscipit quis, luctus non, massa. Fusce ac turpis quis ligula lacinia aliquet. Mauris ipsum. Nulla metus metus, ullamcorper vel, tincidunt sed, euismod in, nibh. Quisque volutpat condimentum velit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
-                </div>
+                <div className="prose prose-lg dark:prose-invert max-w-none text-foreground leading-relaxed" dangerouslySetInnerHTML={{ __html: post.content }}/>
+
               </article>
             </main>
 
@@ -80,11 +74,11 @@ export function BlogPostClientPage({ post, postImage, authorImage, relatedPosts 
                             <Card key={relatedPost.id} className="overflow-hidden transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
                                 <Link href={`/blog/${relatedPost.slug}`}>
                                   <div className="relative h-48 w-full">
-                                      {relatedImage && <Image src={relatedImage.imageUrl} alt={relatedPost.title} fill className="object-cover" data-ai-hint={relatedImage.imageHint}/>}
+                                      {<Image src={relatedPost.imageUrl} alt={relatedPost.title} fill className="object-cover" />}
                                   </div>
                                   <CardContent className="p-4">
                                       <h3 className="font-headline font-semibold leading-tight">{relatedPost.title}</h3>
-                                      <p className="text-xs text-muted-foreground mt-2">{relatedPost.date}</p>
+                                      <p className="text-xs text-muted-foreground mt-2">{format(relatedPost.datePublished.toDate(), 'MMMM dd, yyyy')}</p>
                                   </CardContent>
                                 </Link>
                             </Card>

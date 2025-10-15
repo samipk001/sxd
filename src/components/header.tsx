@@ -24,12 +24,15 @@ export function Header() {
   const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Check scroll position on mount
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -51,7 +54,7 @@ export function Header() {
   };
 
   return (
-    <header className={cn("sticky top-0 z-50 w-full border-b transition-all", isScrolled ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" : "bg-transparent border-transparent")}>
+    <header className={cn("sticky top-0 z-50 w-full border-b transition-all", isMounted && isScrolled ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60" : "bg-transparent border-transparent")}>
       <div className="container flex h-20 items-center">
         <Link href="/" className="mr-6 flex items-center gap-2">
           <LogoIcon />

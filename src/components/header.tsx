@@ -63,9 +63,9 @@ export function Header() {
           ))}
         </nav>
         <div className="flex flex-1 items-center justify-end gap-2">
-          <Button asChild>
-            <Link href="#">Portal Login</Link>
-          </Button>
+           <Button asChild variant="outline" className="rounded-full border-2 border-primary text-primary font-bold transition-all hover:bg-primary hover:text-primary-foreground">
+              <Link href="#">Portal Login</Link>
+           </Button>
           <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
             <SheetTrigger asChild>
               <Button variant="outline" size="icon" className="md:hidden">

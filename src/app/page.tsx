@@ -31,8 +31,13 @@ function HeroSection() {
         <p className="mt-4 text-xl md:text-2xl font-semibold text-accent">
           "Live for God, Lead for Nepal"
         </p>
-        <Button asChild size="lg" className="mt-8 bg-accent text-accent-foreground hover:bg-accent/90">
-          <Link href="/admissions">Enroll Now <ArrowRight className="ml-2 h-5 w-5" /></Link>
+        <Button asChild size="lg" className="mt-8 rounded-full border-2 border-transparent bg-accent px-8 text-lg font-bold text-accent-foreground shadow-lg transition-all duration-300 ease-in-out hover:scale-105 hover:border-accent hover:bg-transparent hover:text-accent group relative overflow-hidden">
+          <Link href="/admissions">
+          <span className="absolute inset-0 h-full w-full bg-accent/30 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+            <span className="relative flex items-center">
+              Enroll Now <ArrowRight className="ml-2 h-5 w-5" />
+            </span>
+          </Link>
         </Button>
       </div>
     </section>

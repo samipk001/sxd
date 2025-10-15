@@ -2,6 +2,7 @@ import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Award, BookOpen, Dna, Palette } from "lucide-react";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 export const metadata = {
   title: "Academics | Xavier's Deonia Hub",
@@ -41,22 +42,24 @@ function CurriculumSection() {
   ];
 
   return (
-    <section className="py-16 md:py-24">
-      <div className="container max-w-4xl mx-auto">
-        <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Our Curriculum</h2>
-        <p className="mt-2 text-muted-foreground text-center">A holistic approach to education from primary to higher secondary levels.</p>
-        <Accordion type="single" collapsible className="w-full mt-12">
-          {curriculum.map(item => (
-            <AccordionItem key={item.grade} value={item.grade}>
-              <AccordionTrigger className="font-headline text-lg">{item.grade}</AccordionTrigger>
-              <AccordionContent className="text-muted-foreground leading-relaxed">
-                {item.details}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </div>
-    </section>
+    <ScrollReveal>
+      <section className="py-16 md:py-24">
+        <div className="container max-w-4xl mx-auto">
+          <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Our Curriculum</h2>
+          <p className="mt-2 text-muted-foreground text-center">A holistic approach to education from primary to higher secondary levels.</p>
+          <Accordion type="single" collapsible className="w-full mt-12">
+            {curriculum.map(item => (
+              <AccordionItem key={item.grade} value={item.grade}>
+                <AccordionTrigger className="font-headline text-lg">{item.grade}</AccordionTrigger>
+                <AccordionContent className="text-muted-foreground leading-relaxed">
+                  {item.details}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+    </ScrollReveal>
   );
 }
 
@@ -68,23 +71,25 @@ function ExtracurricularSection() {
         { icon: BookOpen, title: "Literary Activities", description: "Debate, elocution, and creative writing to enhance communication skills." },
     ];
     return (
-        <section className="py-16 md:py-24 bg-secondary">
-            <div className="container">
-                <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Beyond the Classroom</h2>
-                <p className="mt-2 text-muted-foreground text-center">We believe in the all-round development of our students.</p>
-                <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                    {activities.map(activity => (
-                        <div key={activity.title} className="text-center p-6 bg-background rounded-lg shadow-sm">
-                            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent text-accent-foreground mb-4">
-                                <activity.icon className="h-8 w-8" />
+        <ScrollReveal>
+            <section className="py-16 md:py-24 bg-secondary">
+                <div className="container">
+                    <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Beyond the Classroom</h2>
+                    <p className="mt-2 text-muted-foreground text-center">We believe in the all-round development of our students.</p>
+                    <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        {activities.map(activity => (
+                            <div key={activity.title} className="text-center p-6 bg-background rounded-lg shadow-sm">
+                                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent text-accent-foreground mb-4">
+                                    <activity.icon className="h-8 w-8" />
+                                </div>
+                                <h3 className="font-semibold text-lg">{activity.title}</h3>
+                                <p className="mt-2 text-sm text-muted-foreground">{activity.description}</p>
                             </div>
-                            <h3 className="font-semibold text-lg">{activity.title}</h3>
-                            <p className="mt-2 text-sm text-muted-foreground">{activity.description}</p>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </ScrollReveal>
     );
 }
 

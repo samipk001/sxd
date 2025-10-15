@@ -3,6 +3,7 @@ import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
+import { ScrollReveal } from "@/components/scroll-reveal";
 
 export const metadata = {
   title: "Admissions | Xavier's Deonia Hub",
@@ -29,34 +30,36 @@ function AdmissionProcessSection() {
     { step: 4, title: "Admission Offer", description: "Successful candidates will receive an admission offer. Fees must be paid within the specified deadline to secure the seat." },
   ];
   return (
-    <section className="py-16 md:py-24">
-      <div className="container">
-        <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Admission Process</h2>
-        <p className="mt-2 text-muted-foreground text-center">A simple, transparent process to join our family.</p>
-        <div className="mt-12 relative">
-          <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-border -translate-x-1/2 hidden md:block"></div>
-          {steps.map((step, index) => (
-            <div key={step.step} className={`flex md:items-center my-8 flex-col md:flex-row ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
-              <div className="md:w-5/12">
-                <div className={`p-6 bg-secondary rounded-lg shadow-sm ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
-                  <h3 className="font-headline text-xl font-bold">Step {step.step}: {step.title}</h3>
-                  <p className="mt-2 text-muted-foreground">{step.description}</p>
+    <ScrollReveal>
+      <section className="py-16 md:py-24">
+        <div className="container">
+          <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Admission Process</h2>
+          <p className="mt-2 text-muted-foreground text-center">A simple, transparent process to join our family.</p>
+          <div className="mt-12 relative">
+            <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-border -translate-x-1/2 hidden md:block"></div>
+            {steps.map((step, index) => (
+              <div key={step.step} className={`flex md:items-center my-8 flex-col md:flex-row ${index % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
+                <div className="md:w-5/12">
+                  <div className={`p-6 bg-secondary rounded-lg shadow-sm ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`}>
+                    <h3 className="font-headline text-xl font-bold">Step {step.step}: {step.title}</h3>
+                    <p className="mt-2 text-muted-foreground">{step.description}</p>
+                  </div>
                 </div>
-              </div>
-              <div className="hidden md:block md:w-2/12">
-                <div className="relative">
-                  <div className="absolute left-1/2 -translate-x-1/2 -top-3 w-6 h-6 rounded-full bg-primary border-4 border-secondary"></div>
+                <div className="hidden md:block md:w-2/12">
+                  <div className="relative">
+                    <div className="absolute left-1/2 -translate-x-1/2 -top-3 w-6 h-6 rounded-full bg-primary border-4 border-secondary"></div>
+                  </div>
                 </div>
+                <div className="w-5/12"></div>
               </div>
-              <div className="w-5/12"></div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className="text-center mt-8">
+              <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">Apply Now</Button>
+          </div>
         </div>
-        <div className="text-center mt-8">
-            <Button size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">Apply Now</Button>
-        </div>
-      </div>
-    </section>
+      </section>
+    </ScrollReveal>
   );
 }
 
@@ -69,31 +72,33 @@ function FeeStructureSection() {
         { grade: "Grade 11-12 (Management)", admission: "NPR 35,000", monthly: "NPR 9,000" },
     ];
   return (
-    <section className="py-16 md:py-24 bg-secondary">
-      <div className="container max-w-4xl mx-auto">
-        <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Fee Structure</h2>
-        <p className="mt-2 text-muted-foreground text-center">Affordable fees for quality education. (All amounts are in NPR)</p>
-        <Table className="mt-8 bg-background rounded-lg shadow-sm">
-          <TableHeader>
-            <TableRow>
-              <TableHead className="font-semibold">Grade Level</TableHead>
-              <TableHead className="font-semibold">Admission Fee (One-time)</TableHead>
-              <TableHead className="font-semibold">Monthly Tuition Fee</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {fees.map(fee => (
-              <TableRow key={fee.grade}>
-                <TableCell>{fee.grade}</TableCell>
-                <TableCell>{fee.admission}</TableCell>
-                <TableCell>{fee.monthly}</TableCell>
+    <ScrollReveal>
+      <section className="py-16 md:py-24 bg-secondary">
+        <div className="container max-w-4xl mx-auto">
+          <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Fee Structure</h2>
+          <p className="mt-2 text-muted-foreground text-center">Affordable fees for quality education. (All amounts are in NPR)</p>
+          <Table className="mt-8 bg-background rounded-lg shadow-sm">
+            <TableHeader>
+              <TableRow>
+                <TableHead className="font-semibold">Grade Level</TableHead>
+                <TableHead className="font-semibold">Admission Fee (One-time)</TableHead>
+                <TableHead className="font-semibold">Monthly Tuition Fee</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        <p className="text-xs text-muted-foreground mt-4 text-center">* Additional fees for transportation, uniforms, and extracurricular activities may apply.</p>
-      </div>
-    </section>
+            </TableHeader>
+            <TableBody>
+              {fees.map(fee => (
+                <TableRow key={fee.grade}>
+                  <TableCell>{fee.grade}</TableCell>
+                  <TableCell>{fee.admission}</TableCell>
+                  <TableCell>{fee.monthly}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+          <p className="text-xs text-muted-foreground mt-4 text-center">* Additional fees for transportation, uniforms, and extracurricular activities may apply.</p>
+        </div>
+      </section>
+    </ScrollReveal>
   );
 }
 
@@ -104,28 +109,30 @@ function VirtualTourSection() {
     ].filter(Boolean);
 
     return (
-        <section className="py-16 md:py-24">
-            <div className="container">
-                <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Virtual School Tour</h2>
-                <p className="mt-2 text-muted-foreground text-center">Explore our campus from the comfort of your home.</p>
-                <Carousel className="mt-12 w-full max-w-6xl mx-auto" opts={{ loop: true }}>
-                    <CarouselContent>
-                        {panoramicImages.map((image, index) => image && (
-                            <CarouselItem key={index}>
-                                <div className="relative h-96 w-full rounded-lg overflow-hidden shadow-lg">
-                                    <Image src={image.imageUrl} alt={image.description} fill className="object-cover" data-ai-hint={image.imageHint}/>
-                                    <div className="absolute inset-0 bg-black/20 flex items-end p-8">
-                                        <h3 className="text-white font-headline text-2xl">{image.description}</h3>
+        <ScrollReveal>
+            <section className="py-16 md:py-24">
+                <div className="container">
+                    <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Virtual School Tour</h2>
+                    <p className="mt-2 text-muted-foreground text-center">Explore our campus from the comfort of your home.</p>
+                    <Carousel className="mt-12 w-full max-w-6xl mx-auto" opts={{ loop: true }}>
+                        <CarouselContent>
+                            {panoramicImages.map((image, index) => image && (
+                                <CarouselItem key={index}>
+                                    <div className="relative h-96 w-full rounded-lg overflow-hidden shadow-lg">
+                                        <Image src={image.imageUrl} alt={image.description} fill className="object-cover" data-ai-hint={image.imageHint}/>
+                                        <div className="absolute inset-0 bg-black/20 flex items-end p-8">
+                                            <h3 className="text-white font-headline text-2xl">{image.description}</h3>
+                                        </div>
                                     </div>
-                                </div>
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
-                </Carousel>
-            </div>
-        </section>
+                                </CarouselItem>
+                            ))}
+                        </CarouselContent>
+                        <CarouselPrevious />
+                        <CarouselNext />
+                    </Carousel>
+                </div>
+            </section>
+        </ScrollReveal>
     );
 }
 

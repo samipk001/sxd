@@ -256,7 +256,7 @@ function GalleryTeaserSection() {
             ))}
           </div>
           <div className="text-center mt-12">
-            <Button asChild size="lg">
+            <Button asChild size="lg" variant="outline">
               <Link href="/gallery">
                 <Camera className="mr-2 h-5 w-5" /> View Full Gallery
               </Link>
@@ -274,13 +274,10 @@ export default function Home() {
       <HeroSection />
       <AboutTeaserSection />
       <NewsSection />
-      <PrincipalMessageSection />
       <EventsSection />
       <TestimonialsSection />
       <GalleryTeaserSection />
+      <PrincipalMessageSection />
     </>
   );
 }
-
-
-    

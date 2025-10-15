@@ -1,4 +1,6 @@
 
+'use client'
+
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Calendar, Megaphone, Quote, Star, MapPin, Phone, Mail, Camera } from "lucide-react";
@@ -7,8 +9,11 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { blogPosts, type BlogPost } from "@/lib/blog-data";
+import { type BlogPost } from "@/lib/blog-data";
 import { ScrollReveal } from "@/components/scroll-reveal";
+import { useFirestore, useCollection, useMemoFirebase } from "@/firebase";
+import { collection, query, orderBy, limit } from 'firebase/firestore';
+import { format } from "date-fns";
 
 function HeroSection() {
   const heroImage = PlaceHolderImages.find(p => p.id === 'hero');
@@ -99,7 +104,29 @@ function PrincipalMessageSection() {
 }
 
 function NewsSection() {
-  const featuredPosts = blogPosts.slice(0, 5);
+    const firestore = useFirestore();
+    const blogsQuery = useMemoFirebase(() =>
+        firestore
+            ? query(collection(firestore, 'blogs'), orderBy('datePublished', 'desc'), limit(5))
+            : null,
+        [firestore]
+    );
+    const { data: featuredPosts, isLoading } = useCollection<BlogPost>(blogsQuery);
+
+    if (isLoading) {
+        return (
+            <section className="py-16 md:py-24 bg-background">
+                <div className="container">
+                    <h2 className="font-headline text-3xl md:text-4xl font-bold">Latest News & Updates</h2>
+                    <p className="mt-2 text-muted-foreground">Loading latest news...</p>
+                </div>
+            </section>
+        );
+    }
+  
+    if (!featuredPosts || featuredPosts.length === 0) {
+      return null;
+    }
 
   return (
     <ScrollReveal>
@@ -119,20 +146,19 @@ function NewsSection() {
           <Carousel opts={{ align: "start", loop: true }} className="w-full">
             <CarouselContent>
               {featuredPosts.map((post: BlogPost) => {
-                const postImage = PlaceHolderImages.find(p => p.id === 'ceremony');
                 return (
                   <CarouselItem key={post.id} className="md:basis-1/2 lg:basis-1/3">
                     <div className="p-1">
                       <Card className="h-full overflow-hidden">
                         <CardContent className="p-0">
-                          <Link href={`/blog/${post.slug}`}>
+                          <Link href={`/blog/${post.slug || post.id}`}>
                             <div className="relative h-56 w-full">
-                               {postImage && <Image src={postImage.imageUrl} alt={post.title} fill className="object-cover transition-transform duration-500 hover:scale-105" data-ai-hint={postImage.imageHint} />}
+                               <Image src={post.imageUrl} alt={post.title} fill className="object-cover transition-transform duration-500 hover:scale-105" />
                             </div>
                             <div className="p-6">
-                              <p className="text-sm text-muted-foreground">{post.date}</p>
+                              <p className="text-sm text-muted-foreground">{post.datePublished ? format(post.datePublished.toDate(), 'MMMM dd, yyyy') : 'N/A'}</p>
                               <h3 className="mt-2 font-headline text-xl font-semibold leading-tight">{post.title}</h3>
-                              <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{post.excerpt}</p>
+                              <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{post.content}</p>
                               <span className="mt-4 inline-flex items-center text-primary font-semibold text-sm">Read More <ArrowRight className="ml-1 h-4 w-4" /></span>
                             </div>
                           </Link>

@@ -3,13 +3,14 @@
 import { useState } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
+import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { collection, query, where, orderBy } from 'firebase/firestore';
 import { PlaceHolderImages } from "@/lib/placeholder-images";
-import { blogPosts, type BlogPost } from "@/lib/blog-data";
+import { type BlogPost } from "@/lib/blog-data";
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Card, CardContent } from '@/components/ui/card';
-
-const categories = ["All Categories", ...Array.from(new Set(blogPosts.map(p => p.category)))];
+import { format } from 'date-fns';
 
 function PageHeader() {
   const headerImage = PlaceHolderImages.find(p => p.id === 'hero');
@@ -27,11 +28,24 @@ function PageHeader() {
 export default function BlogPage() {
     const [searchTerm, setSearchTerm] = useState('');
     const [category, setCategory] = useState('All Categories');
+    const firestore = useFirestore();
 
-    const filteredPosts = blogPosts.filter(post => {
-        const matchesCategory = category === 'All Categories' || post.category === category;
-        const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) || post.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
-        return matchesCategory && matchesSearch;
+    const blogsCollection = useMemoFirebase(() => {
+        if (!firestore) return null;
+        let q = query(collection(firestore, 'blogs'), orderBy('datePublished', 'desc'));
+        if (category !== 'All Categories') {
+            q = query(q, where('category', '==', category));
+        }
+        return q;
+    }, [firestore, category]);
+
+    const { data: blogPosts, isLoading } = useCollection<BlogPost>(blogsCollection);
+
+    const categories = ["All Categories", "Events", "Academics", "Announcements"];
+
+    const filteredPosts = blogPosts?.filter(post => {
+        const matchesSearch = post.title.toLowerCase().includes(searchTerm.toLowerCase()) || post.content.toLowerCase().includes(searchTerm.toLowerCase());
+        return matchesSearch;
     });
 
   return (
@@ -60,28 +74,34 @@ export default function BlogPage() {
                     </Select>
                 </div>
             </div>
+            
+            {isLoading && <p>Loading posts...</p>}
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {filteredPosts.map(post => {
-                    const postImage = PlaceHolderImages.find(p => p.id === 'hero');
-                    return (
-                        <Card key={post.id} className="overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
-                            <Link href={`/blog/${post.slug}`} className="flex flex-col h-full">
-                                <div className="relative h-56 w-full overflow-hidden">
-                                    {postImage && <Image src={postImage.imageUrl} alt={post.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" data-ai-hint={postImage.imageHint} />}
-                                </div>
-                                <CardContent className="p-6 flex flex-col flex-grow">
-                                    <p className="text-sm text-primary font-semibold">{post.category}</p>
-                                    <h3 className="mt-2 font-headline text-xl font-semibold leading-tight flex-grow">{post.title}</h3>
-                                    <p className="mt-2 text-sm text-muted-foreground line-clamp-3">{post.excerpt}</p>
-                                    <p className="mt-4 text-xs text-muted-foreground">{post.date} &bull; by {post.author}</p>
-                                </CardContent>
-                            </Link>
-                        </Card>
-                    );
-                })}
-            </div>
-            {filteredPosts.length === 0 && (
+            {!isLoading && filteredPosts && (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {filteredPosts.map(post => {
+                        return (
+                            <Card key={post.id} className="overflow-hidden h-full flex flex-col transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
+                                <Link href={`/blog/${post.slug || post.id}`} className="flex flex-col h-full">
+                                    <div className="relative h-56 w-full overflow-hidden">
+                                        <Image src={post.imageUrl} alt={post.title} fill className="object-cover transition-transform duration-500 group-hover:scale-105" />
+                                    </div>
+                                    <CardContent className="p-6 flex flex-col flex-grow">
+                                        <p className="text-sm text-primary font-semibold">{post.category}</p>
+                                        <h3 className="mt-2 font-headline text-xl font-semibold leading-tight flex-grow">{post.title}</h3>
+                                        <p className="mt-2 text-sm text-muted-foreground line-clamp-3">{post.content}</p>
+                                        <p className="mt-4 text-xs text-muted-foreground">
+                                            {post.datePublished ? format(post.datePublished.toDate(), 'MMMM dd, yyyy') : 'N/A'} &bull; by {post.author}
+                                        </p>
+                                    </CardContent>
+                                </Link>
+                            </Card>
+                        );
+                    })}
+                </div>
+            )}
+
+            {!isLoading && (!filteredPosts || filteredPosts.length === 0) && (
                 <div className="text-center py-16">
                     <h3 className="font-headline text-2xl">No posts found</h3>
                     <p className="text-muted-foreground mt-2">Try adjusting your search or filter.</p>

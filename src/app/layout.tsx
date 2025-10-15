@@ -7,6 +7,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { SmoothScrollProvider } from '@/components/smooth-scroll-provider';
 import { FirebaseClientProvider } from '@/firebase';
+import { PopupNotice } from '@/components/popup-notice';
 
 export const metadata: Metadata = {
   title: "Xavier's Deonia Hub",
@@ -35,6 +36,7 @@ export default function RootLayout({
             </div>
             <Toaster />
             <Chatbot />
+            <PopupNotice />
           </SmoothScrollProvider>
         </FirebaseClientProvider>
       </body>

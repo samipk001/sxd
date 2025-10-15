@@ -1,53 +1,51 @@
+'use client'
+
 import Image from "next/image";
+import { useFirestore, useCollection, useMemoFirebase } from '@/firebase';
+import { collection } from 'firebase/firestore';
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { ScrollReveal } from "@/components/scroll-reveal";
 
-export const metadata = {
-  title: "About Us | Xavier's Deonia Hub",
-};
-
-function PageHeader() {
+export default function AboutPage() {
+  const firestore = useFirestore();
+  const staffCollection = useMemoFirebase(() => firestore ? collection(firestore, 'staff_profiles') : null, [firestore]);
+  const { data: faculty } = useCollection(staffCollection);
+  
   const headerImage = PlaceHolderImages.find(p => p.id === 'hero');
-  return (
-    <section className="relative h-64 w-full">
-      {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10 parallax" data-ai-hint={headerImage.imageHint} />}
-      <div className="absolute inset-0 bg-primary/60" />
-      <div className="container relative z-10 flex h-full items-center justify-center">
-        <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary-foreground">About St. Xavier's School</h1>
-      </div>
-    </section>
-  );
-}
-
-function MissionVisionSection() {
-    return(
-        <ScrollReveal>
-            <section className="py-16 md:py-24">
-                <div className="container grid md:grid-cols-2 gap-16 items-center">
-                    <div>
-                        <h2 className="font-headline text-3xl font-bold">Our Mission & Vision</h2>
-                        <p className="mt-4 text-muted-foreground leading-relaxed">
-                            Our mission is to form individuals who are men and women of competence, conscience, and compassionate commitment. We aim to cultivate a learning environment that encourages critical thinking, creativity, and a lifelong passion for learning.
-                        </p>
-                    </div>
-                    <div>
-                         <h3 className="font-headline text-2xl font-bold">"Live for God, Lead for Nepal"</h3>
-                         <p className="mt-2 text-muted-foreground leading-relaxed">
-                            This motto is the cornerstone of our educational philosophy. It inspires our students to achieve spiritual and moral growth while fostering a sense of duty and leadership to serve our nation with integrity and excellence.
-                        </p>
-                    </div>
-                </div>
-            </section>
-        </ScrollReveal>
-    );
-}
-
-function PrincipalMessageSection() {
   const principalImage = PlaceHolderImages.find(p => p.id === 'principal');
+
   return (
-    <ScrollReveal>
+    <>
+      <section className="relative h-64 w-full">
+        {headerImage && <Image src={headerImage.imageUrl} alt={headerImage.description} fill className="object-cover -z-10 parallax" data-ai-hint={headerImage.imageHint} />}
+        <div className="absolute inset-0 bg-primary/60" />
+        <div className="container relative z-10 flex h-full items-center justify-center">
+          <h1 className="font-headline text-4xl md:text-5xl font-bold text-primary-foreground">About St. Xavier's School</h1>
+        </div>
+      </section>
+
+      <ScrollReveal>
+          <section className="py-16 md:py-24">
+              <div className="container grid md:grid-cols-2 gap-16 items-center">
+                  <div>
+                      <h2 className="font-headline text-3xl font-bold">Our Mission & Vision</h2>
+                      <p className="mt-4 text-muted-foreground leading-relaxed">
+                          Our mission is to form individuals who are men and women of competence, conscience, and compassionate commitment. We aim to cultivate a learning environment that encourages critical thinking, creativity, and a lifelong passion for learning.
+                      </p>
+                  </div>
+                  <div>
+                       <h3 className="font-headline text-2xl font-bold">"Live for God, Lead for Nepal"</h3>
+                       <p className="mt-2 text-muted-foreground leading-relaxed">
+                          This motto is the cornerstone of our educational philosophy. It inspires our students to achieve spiritual and moral growth while fostering a sense of duty and leadership to serve our nation with integrity and excellence.
+                      </p>
+                  </div>
+              </div>
+          </section>
+      </ScrollReveal>
+
+      <ScrollReveal>
         <section className="py-16 md:py-24 bg-secondary">
           <div className="container">
             <Card className="overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-2">
@@ -67,51 +65,28 @@ function PrincipalMessageSection() {
             </Card>
           </div>
         </section>
-    </ScrollReveal>
-  );
-}
+      </ScrollReveal>
 
-function FacultySection() {
-    const faculty = [
-        { name: "Jane Smith", subject: "Head of Academics, Physics", imageId: "testimonial2" },
-        { name: "Robert Johnson", subject: "Mathematics", imageId: "testimonial1" },
-        { name: "Emily Davis", subject: "English Literature", imageId: "testimonial2" },
-        { name: "Michael Brown", subject: "Head of Sports, P.E.", imageId: "testimonial1" },
-    ];
-    return (
-        <ScrollReveal>
-            <section className="py-16 md:py-24">
-                <div className="container">
-                    <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Our Dedicated Faculty</h2>
-                    <p className="mt-2 text-muted-foreground text-center">Meet the educators shaping our students' futures.</p>
-                    <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {faculty.map(member => {
-                            const image = PlaceHolderImages.find(p => p.id === member.imageId);
-                            return (
-                                <Card key={member.name} className="text-center p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
-                                    <Avatar className="h-24 w-24 mx-auto">
-                                        {image && <AvatarImage src={image.imageUrl} alt={member.name} data-ai-hint={image.imageHint} />}
-                                        <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
-                                    </Avatar>
-                                    <h3 className="mt-4 font-semibold text-lg">{member.name}</h3>
-                                    <p className="text-sm text-muted-foreground">{member.subject}</p>
-                                </Card>
-                            )
-                        })}
-                    </div>
-                </div>
-            </section>
-        </ScrollReveal>
-    )
-}
-
-export default function AboutPage() {
-  return (
-    <>
-      <PageHeader />
-      <MissionVisionSection />
-      <PrincipalMessageSection />
-      <FacultySection />
+      <ScrollReveal>
+          <section className="py-16 md:py-24">
+              <div className="container">
+                  <h2 className="font-headline text-3xl md:text-4xl font-bold text-center">Our Dedicated Faculty</h2>
+                  <p className="mt-2 text-muted-foreground text-center">Meet the educators shaping our students' futures.</p>
+                  <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                      {faculty && faculty.map(member => (
+                          <Card key={member.id} className="text-center p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-xl">
+                              <Avatar className="h-24 w-24 mx-auto">
+                                  <AvatarImage src={member.photoUrl} alt={member.name} />
+                                  <AvatarFallback>{member.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                              </Avatar>
+                              <h3 className="mt-4 font-semibold text-lg">{member.name}</h3>
+                              <p className="text-sm text-muted-foreground">{member.title}</p>
+                          </Card>
+                      ))}
+                  </div>
+              </div>
+          </section>
+      </ScrollReveal>
     </>
   );
 }

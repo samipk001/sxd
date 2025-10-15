@@ -1,41 +1,36 @@
-import { notFound } from 'next/navigation';
+'use client';
+import { useParams, notFound } from 'next/navigation';
+import { useFirestore, useDoc, useMemoFirebase } from '@/firebase';
+import { doc } from 'firebase/firestore';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { blogPosts } from '@/lib/blog-data';
 import { BlogPostClientPage } from './client-page';
+import { type BlogPost } from '@/lib/blog-data';
 
-type BlogPostPageProps = {
-  params: {
-    slug: string;
-  };
-};
+export default function BlogPostPage() {
+  const params = useParams();
+  const slug = params.slug as string;
+  const firestore = useFirestore();
 
-function getPostData(slug: string) {
-    const post = blogPosts.find(p => p.slug === slug);
-    if (!post) return null;
-    
-    const postImage = PlaceHolderImages.find(p => p.id === 'hero');
-    const authorImage = PlaceHolderImages.find(p => p.id === 'principal');
-    const relatedPosts = blogPosts.filter(p => p.category === post.category && p.id !== post.id).slice(0,2);
-    
-    return { post, postImage, authorImage, relatedPosts };
-}
+  // Note: Firestore doesn't support querying by a field that isn't the document ID without an index.
+  // This is a workaround for this prototype. In a real app, you'd either use the doc ID as the slug
+  // or use a query with a 'where' clause on the slug field.
+  // For now, we assume the slug is the document ID. This might fail if slugs and IDs don't match.
+  const blogDocRef = useMemoFirebase(() => firestore ? doc(firestore, 'blogs', slug) : null, [firestore, slug]);
+  const { data: post, isLoading } = useDoc<BlogPost>(blogDocRef);
 
-export async function generateStaticParams() {
-    return blogPosts.map(post => ({
-        slug: post.slug,
-    }));
-}
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-// Note: generateMetadata is not a client component feature.
-// To use it, we would need to fetch data twice.
-// For this prototype, we will rely on client-side fetching.
-
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const data = getPostData(params.slug);
-
-  if (!data) {
+  if (!post) {
     notFound();
   }
+
+  const postImage = PlaceHolderImages.find(p => p.id === 'hero');
+  const authorImage = PlaceHolderImages.find(p => p.id === 'principal');
   
-  return <BlogPostClientPage {...data} />;
+  // This is mock data and should be replaced with a real query.
+  const relatedPosts: BlogPost[] = []; 
+
+  return <BlogPostClientPage post={post} postImage={postImage} authorImage={authorImage} relatedPosts={relatedPosts} />;
 }
